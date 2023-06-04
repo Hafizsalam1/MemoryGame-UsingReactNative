@@ -2,6 +2,7 @@ import React from "react"
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from "./styles";
+import Modal from 'react-modal';
 
 
 const GamePage = () =>{
@@ -14,11 +15,10 @@ const GamePage = () =>{
 
     const [score, setScore] = React.useState(0);
 
-    const [countDown, setCountDown] = React.useState(5);
-
     const [disableSubmit, setDisableSubmit] = React.useState(true);
 
     const [disableStart, setDisableStart] = React.useState(false);
+
 
 
     const [color, setColor] = React.useState(
@@ -48,12 +48,20 @@ const GamePage = () =>{
         }));
       }
 
+      else if(color[buttonId][0]==="success"){
+        setColor(prevColors => ({
+          ...prevColors,
+          [buttonId]: ["primary",1]
+        }));
+
+      }
+
 
       else{
 
           setColor(prevColors => ({
           ...prevColors,
-          [buttonId]: ["primary",1]
+          [buttonId]: ["success",2]
         }));
 
 
@@ -64,15 +72,15 @@ const GamePage = () =>{
       const onClickStart = () => {
         setDisableSubmit(true);
         const newRanNumb = [
-          Math.round(Math.random()),
-          Math.round(Math.random()),
-          Math.round(Math.random()),
-          Math.round(Math.random()),
-          Math.round(Math.random()),
-          Math.round(Math.random()),
-          Math.round(Math.random()),
-          Math.round(Math.random()),
-          Math.round(Math.random())
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3),
+          Math.floor(Math.random() * 3)
         ];
         setRanNumb(newRanNumb);
         setQuest([...newRanNumb]);
@@ -82,7 +90,17 @@ const GamePage = () =>{
               ...prevColors,
               [button]: ["danger", 0],
             }));
-          } else {
+          }
+          else if (newRanNumb[index]==2){
+
+            setColor((prevColors) => ({
+              ...prevColors,
+              [button]: ["success", 2],
+            }));
+
+
+          }
+          else {
             setColor((prevColors) => ({
               ...prevColors,
               [button]: ["primary", 1],
