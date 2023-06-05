@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 const GamePage = () =>{
 
   const [ranNumb, setRanNumb] = React.useState([]);
+  let highScore = [];
 
 
     let ans = [];
@@ -18,6 +19,10 @@ const GamePage = () =>{
     const [disableSubmit, setDisableSubmit] = React.useState(true);
 
     const [disableStart, setDisableStart] = React.useState(false);
+
+    const [isModalOpen, setIsModalOpen] = React.useState(true);
+    const [nama, setNama] = React.useState("");
+
 
 
 
@@ -137,10 +142,12 @@ const GamePage = () =>{
           
         }
         else{
-        alert('Game Over. Your score: '+score);
+        highScore.push([nama, score]);
+        alert("Game over!\n Your score: " + score + "\n history: \n" + highScore.join(" ,"))
         setScore(0);
         setDisableStart(false);
         setDisableSubmit(true);
+        setIsModalOpen(true)
         }
 
         // ans.forEach(ans => {
@@ -151,23 +158,34 @@ const GamePage = () =>{
         // });
         
       }
+      const onChangeForm = (e) =>{
+        e.preventDefault();
+        setNama(e.target.value)
+      }
 
-
-
-
-
-
-
-      
-
-    
-
+      const startModal = () =>{
+        setIsModalOpen(false)
+        onClickStart()
+      }
 
 
 
     return(
         <div>
-          <h1> Memory Games</h1>
+          <Modal isOpen={isModalOpen} style={styles.modal}>
+            <div>
+          <h1 style={styles.fontModal}> Welcome to three colours Memory Game</h1>
+          <br/>
+          <h2 style={styles.fontModal}>Please enter your name!</h2>
+          <div style={styles.fontModal}>
+          <input placeholder="name" value={nama} onChange={onChangeForm}/><br/><br/>
+          <Button variant='primary' style={styles.modalButton} onClick={startModal} disabled={disableStart}> START </Button>
+          </div>
+          </div>
+
+
+
+          </Modal>
           {"SCORE: " + score}
           <br/>
           <br/>
@@ -188,7 +206,7 @@ const GamePage = () =>{
             </div>
             <br/>
             <Button variant='success' style={styles.Button} onClick={onclickSubmit} disabled={disableSubmit}> SUBMIT </Button>
-            <Button variant='primary' style={styles.Button} onClick={onClickStart} disabled={disableStart}> START </Button>
+            {/* <Button variant='primary' style={styles.Button} onClick={onClickStart} disabled={disableStart}> RETRY </Button> */}
             
         </div>
     )
