@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 const GamePage = () =>{
 
   const [ranNumb, setRanNumb] = React.useState([]);
+  const [hiScore, setHiScore] = React.useState([]);
   let highScore = [];
 
 
@@ -142,8 +143,9 @@ const GamePage = () =>{
           
         }
         else{
-        highScore.push([nama, score]);
-        alert("Game over!\n Your score: " + score + "\n history: \n" + highScore.join(" ,"))
+        hiScore.push([nama, score]);
+        setHiScore([...hiScore]);
+        alert("Game over!\n Your score: " + score + "\n history: \n" + hiScore.join("\n"))
         setScore(0);
         setDisableStart(false);
         setDisableSubmit(true);
@@ -173,18 +175,13 @@ const GamePage = () =>{
     return(
         <div>
           <Modal isOpen={isModalOpen} style={styles.modal}>
-            <div>
-          <h1 style={styles.fontModal}> Welcome to three colours Memory Game</h1>
+            <div style={styles.fontModal}> 
+          <h1 > Welcome to three colours Memory Game</h1>
           <br/>
-          <h2 style={styles.fontModal}>Please enter your name!</h2>
-          <div style={styles.fontModal}>
-          <input placeholder="name" value={nama} onChange={onChangeForm}/><br/><br/>
+          <h2>Please enter your name!</h2>
+          <input placeholder="name" value={nama} onChange={onChangeForm}/>
           <Button variant='primary' style={styles.modalButton} onClick={startModal} disabled={disableStart}> START </Button>
           </div>
-          </div>
-
-
-
           </Modal>
           {"SCORE: " + score}
           <br/>

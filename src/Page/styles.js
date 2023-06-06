@@ -12,13 +12,16 @@ const styles = {
 
     fontModal:{
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
 
     },
 
     modalButton:{
         width:'150px',
-        heigth:'100px'
+        heigth:'100px',
+        marginTop: '20px'
 
     }
 
