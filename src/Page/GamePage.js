@@ -170,6 +170,12 @@ const GamePage = () =>{
         onClickStart()
       }
 
+      const onHistory = (e) =>{
+        e.preventDefault();
+        alert("History: \n" + hiScore.join("\n"))
+
+      }
+
 
 
     return(
@@ -181,6 +187,7 @@ const GamePage = () =>{
           <h2>Please enter your name!</h2>
           <input placeholder="name" value={nama} onChange={onChangeForm}/>
           <Button variant='primary' style={styles.modalButton} onClick={startModal} disabled={disableStart}> START </Button>
+          <Button variant='primary' style={styles.modalButton} onClick={onHistory} disabled={disableStart}> HISTORY </Button>
           </div>
           </Modal>
           {"SCORE: " + score}
